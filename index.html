@@ -272,6 +272,7 @@
 const DATA = [
   {
     titulo: "Solicitud de asignación de jurado",
+    soloInfo: true,
     info: {
       titulo: "Cómo realizar este trámite",
       pasos: [
@@ -298,6 +299,7 @@ const DATA = [
   },
   {
     titulo: "Revisión de proyecto de tesis",
+    soloInfo: true,
     info: {
       titulo: "Cómo realizar este trámite",
       pasos: [
@@ -319,6 +321,7 @@ const DATA = [
   },
   {
     titulo: "Ejecución de proyecto de tesis",
+    soloInfo: true,
     info: {
       titulo: "Cómo realizar este trámite",
       pasos: [
@@ -342,6 +345,7 @@ const DATA = [
   },
   {
     titulo: "Sustentación de informe final de tesis",
+    soloInfo: true,
     info: {
       titulo: "Cómo realizar este trámite",
       pasos: [
@@ -431,17 +435,19 @@ function render(){
     }
 
     let fasesHtml = '';
-    proc.fases.forEach(fase => {
-      fasesHtml += `<div class="fase">
-        <div class="fase-titulo">${fase.nombre}</div>
-        ${fase.items.map(([nombre, requiereFormato]) => `
-          <div class="item">
-            <span class="nombre">${nombre}</span>
-            ${requiereFormato ? '<span class="tag-formato">Requiere formato</span>' : ''}
-          </div>
-        `).join('')}
-      </div>`;
-    });
+    if (!proc.soloInfo) {
+      proc.fases.forEach(fase => {
+        fasesHtml += `<div class="fase">
+          <div class="fase-titulo">${fase.nombre}</div>
+          ${fase.items.map(([nombre, requiereFormato]) => `
+            <div class="item">
+              <span class="nombre">${nombre}</span>
+              ${requiereFormato ? '<span class="tag-formato">Requiere formato</span>' : ''}
+            </div>
+          `).join('')}
+        </div>`;
+      });
+    }
 
     div.innerHTML = `
       <div class="proceso-head" role="button" tabindex="0">
